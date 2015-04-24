@@ -26,6 +26,7 @@ for x in range(width):
 	for y in range(height):
 		arr2[x,y] = arr[Node.__str__
 
+This works, produces colour palette:
 im2 = Image.new('RGB', (width,height), "blue")
 pix2 = im2.load()
 
