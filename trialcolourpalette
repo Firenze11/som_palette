@@ -1,0 +1,37 @@
+from PIL import Image
+from sys import argv
+
+class Node:
+	def __init__ (self, _v, _x, _y):
+		self.v = _v
+		self.x = _x
+		self.y = _y
+
+	def __str__ (self):
+		return str (self.v)
+
+prog, picture = argv
+
+prog, picture = argv
+im = Image.open(picture)
+pix = im.load()
+width, height = im.size
+arr = []
+for x in range(width):
+	for y in range(height):
+		arr[x,y] = Node(pix[x,y], x, y)
+'''
+arr2 = []
+for x in range(width):
+	for y in range(height):
+		arr2[x,y] = arr[Node.__str__
+
+im2 = Image.new('RGB', (width,height), "blue")
+pix2 = im2.load()
+
+for i in range(width):
+	for j in range(height):
+		pix2[i,j] = (i*255/width,j*255/height,100)
+
+im2.show()
+'''
