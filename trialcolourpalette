@@ -19,7 +19,7 @@ width, height = im.size
 arr = []
 for x in range(width):
 	for y in range(height):
-		arr[x,y] = Node(pix[x,y], x, y)
+		arr[x,y] = Node(pix[x,y], x, y) ''' tuple in list? '''
 '''
 arr2 = []
 for x in range(width):
