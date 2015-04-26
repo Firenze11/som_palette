@@ -6,7 +6,7 @@
 import classes
 import random
 import math
-
+from PIL import Image
 
 # In[200]:
 
@@ -88,30 +88,53 @@ s_o_m = initialize_som(5,6)
 
 
 # In[210]:
-
+print "a"
 print s_o_m
+print "b"
+for i in range(6):
+    for j in range (5):
+        print s_o_m[i][j]
+
+im2 = Image.new('RGB', (5,6), None)
+pix2 = im2.load()
+
+print pix2[0,0]
+print s_o_m[0]
+print s_o_m[0][0]
+print type(pix2[0,0])
+print type(s_o_m[0][0])
+pix2[0,0] = s_o_m[0][0]
+print "a"
+for i in range(6):
+    for j in range(5):
+        pix2[i,j] = s_o_m[i][j]
+
+im2.show()
 
 
 # In[211]:
 
-image = classes.Dataset("cat.jpeg")
+image = classes.Dataset("ducksmall.jpeg")
 
 
 # In[212]:
 
 def train (data,som,w,h):
-    N = 100;
+    N = 10;
     for t in xrange(N):
         for i in xrange(len(data)):
             pixel_v = data.get_vector(i)
             win_n = winner_node(pixel_v,som)
             update_som(som,pixel_v,win_n,t,w,h,N)
+        print t
         
 
 
 # In[142]:
 
 train(image,s_o_m,5,6)
+a = s_o_m.get_v
+print a
 
 
 # In[ ]:
