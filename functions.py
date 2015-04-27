@@ -89,7 +89,7 @@ s_o_m = initialize_som(5,6)
 
 # In[210]:
 
-print s_o_m
+#print s_o_m
 
 
 # In[211]:
@@ -103,15 +103,20 @@ def train (data,som,w,h):
     N = 100;
     for t in xrange(N):
         for i in xrange(len(data)):
+            print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
             win_n = winner_node(pixel_v,som)
             update_som(som,pixel_v,win_n,t,w,h,N)
-        
-
+    print "training finished"    
+    for i in range(h):
+        for j in range(w):
+            print som[i][j]
 
 # In[142]:
 
 train(image,s_o_m,5,6)
+
+
 
 
 # In[ ]:
