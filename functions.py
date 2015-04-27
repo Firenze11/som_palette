@@ -91,7 +91,7 @@ s_o_m = initialize_som(5,6)
 
 
 # In[210]:
-print "a"
+
 print s_o_m
 print "b"
 for i in range(6):
