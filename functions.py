@@ -10,8 +10,8 @@ from PIL import Image
 
 # In[200]:
 
-neuron_w = 4
-neuron_h = 4
+neuron_w = 40
+neuron_h = 40
 max_dist = 3 * pow(255,2)
 
 a0 = 0.1 #initial learning rate
@@ -22,11 +22,11 @@ We did this! In the last loop of the code (last 10 lines)
 '''
 #TODO: maybe normalize vectors, so that it works with different kind of data - not really necessary
 
-def initialize_som(w, h):
+def initialize_som():
     out_map = []
-    for i in range(h):
+    for i in range(neuron_h):
         out_map.append([])
-        for j in range(w):
+        for j in range(neuron_w):
             temp_col =classes.Node((random.randint(0,255), random.randint(0,255), random.randint(0,255)), j, i)
             out_map[i].append(temp_col)
     return out_map
@@ -34,8 +34,8 @@ def initialize_som(w, h):
 
 # In[201]:
 
-def neighborhood(wn,cn,t,w,h,N):
-    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t,w,h,N) * radius(t,w,h,N)))
+def neighborhood(wn,cn,t,N):
+    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t,N) * radius(t,N)))
 
 
 # In[202]:
@@ -64,9 +64,9 @@ def sq_node_distance(n0, n1):
 
 # In[205]:
 
-def update_node(pv,wn,cn,t,w,h,N):
+def update_node(pv,wn,cn,t,N):
     _a = a(t,N)
-    _n = neighborhood(wn,cn,t,w,h,N)
+    _n = neighborhood(wn,cn,t,N)
     v = ()
     for i in xrange(len(pv)):
         new_dim = cn.get_v()[i] + _a * _n * (pv[i]-cn.get_v()[i])
@@ -76,16 +76,16 @@ def update_node(pv,wn,cn,t,w,h,N):
 
 # In[206]:
 
-def update_som(som,pv,wn,t,w,h,N):
+def update_som(som,pv,wn,t,N):
     for column in som:
         for cn in column:
-            update_node(pv, wn,cn,t,w,h,N)
+            update_node(pv, wn,cn,t,N)
 
 
 # In[207]:
 
-def radius(t,w,h,N):
-    return (w+h)/4 * math.exp(-t / (N / math.log( (w+h)/4) ))
+def radius(t,N):
+    return (neuron_w + neuron_h)/4 * math.exp(-t / (N / math.log( (neuron_w + neuron_h)/4) ))
 
 
 # In[208]:
@@ -97,7 +97,7 @@ def a(t,N):
 # In[209]:
 
 
-s_o_m = initialize_som(neuron_w,neuron_h)
+s_o_m = initialize_som()
 
 
 # In[210]:
@@ -111,23 +111,23 @@ image = classes.Dataset("sample.bmp")
 
 # In[212]:
 
-def train (data,som,w,h):
-    N = 5;
+def train (data,som):
+    N = 100;
     for t in xrange(N):
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
-            win_n = winner_node(pixel_v,som)
-            update_som(som,pixel_v,win_n,t,w,h,N)
+            win_n = winner_node(pixel_v, som)
+            update_som(som, pixel_v, win_n, t, N)
     print "training finished" 
-    for i in range(h):
-        for j in range(w):
+    for i in range(neuron_h):
+        for j in range(neuron_w):
             print som[i][j]
 
 # In[142]:
 
 
-train(image,s_o_m,neuron_w,neuron_h)
+train(image,s_o_m)
 
 im3 = Image.new('RGB', (neuron_w,neuron_h), None)
 pix3 = im3.load()
@@ -168,7 +168,7 @@ def reproduce (data,fin_som,pic_w,pic_h,som_w,som_h):
         pix4[i/pic_w,i%pic_w] = win_u.get_v()
     pix4.show()
 
-reproduce(image,s_o_m,image.size[0],image.size[1],neuron_w,neuron_h)
+#reproduce(image,s_o_m,image.size[0],image.size[1],neuron_w,neuron_h)
 
 '''
 for x in range(image.size[0]):
