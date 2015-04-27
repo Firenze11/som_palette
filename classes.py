@@ -9,7 +9,7 @@ class Dataset:
     def __init__ (self, filename):
         im = Image.open(filename,'r') #Can be many different formats.
         pix = im.load()
-        print im.size #Get the width and hight of the image for iterating over
+        #print im.size #Get the width and hight of the image for iterating over
         im.show()
         
         self._vectors = []
@@ -42,9 +42,9 @@ class Dataset:
         return self._labels[point]
 
 a = Dataset("cat.jpeg")
-print a[4]
-print a.get_vector(4)
-print a.get_label(4)
+#print a[4]
+#print a.get_vector(4)
+#print a.get_label(4)
 
 
 
