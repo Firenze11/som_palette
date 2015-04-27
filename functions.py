@@ -14,6 +14,8 @@ neuron_w = 4
 neuron_h = 4
 max_dist = 3 * pow(255,2)
 
+a0 = 0.1 #initial learning rate
+
 #TODO: round result vectors, so that colors have tuples of integers
 '''
 We did this! In the last loop of the code (last 10 lines)
@@ -33,7 +35,7 @@ def initialize_som(w, h):
 # In[201]:
 
 def neighborhood(wn,cn,t,w,h,N):
-    return math.exp(-node_distance(wn,cn) * node_distance(wn,cn)/ (2 * radius(t,w,h,N) * radius(t,w,h,N)))
+    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t,w,h,N) * radius(t,w,h,N)))
 
 
 # In[202]:
@@ -56,8 +58,8 @@ def winner_node(pv, som):
 
 # In[204]:
 
-def node_distance(n0, n1):
-    return math.sqrt(math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2))
+def sq_node_distance(n0, n1):
+    return math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2)
 
 
 # In[205]:
@@ -89,17 +91,17 @@ def radius(t,w,h,N):
 # In[208]:
 
 def a(t,N):
-    return 0.1 * math.exp(-t / N)
+    return a0 * math.exp(-t / N)
 
 
 # In[209]:
+
 
 s_o_m = initialize_som(neuron_w,neuron_h)
 
 
 # In[210]:
 
-#print s_o_m
 
 
 # In[211]:
@@ -123,6 +125,7 @@ def train (data,som,w,h):
             print som[i][j]
 
 # In[142]:
+
 
 train(image,s_o_m,neuron_w,neuron_h)
 
