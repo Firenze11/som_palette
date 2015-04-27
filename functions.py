@@ -124,27 +124,17 @@ def train (data,som):
     for i in range(neuron_h):
         for j in range(neuron_w):
             print som[i][j]
+    som_im = Image.new('RGB', (neuron_w,neuron_h), None)
+    som_val = som_im.load()
+    for i in range(neuron_h):
+        for j in range(neuron_w):
+            som_val[j,i] = s_o_m[i][j].get_v()
+    som_im.show()
 
 # In[142]:
 
 
 train(image,s_o_m)
-
-im3 = Image.new('RGB', (neuron_w,neuron_h), None)
-pix3 = im3.load()
-
-for i in range(neuron_h):
-    for j in range(neuron_w):
-        lst = list(s_o_m[i][j].get_v())
-        tup = []
-        for k in range(len(lst)):
-            tup[len(tup):] = [int(round(s_o_m[i][j].get_v()[k]))]
-        rgbtup = tuple(tup)
-        pix3[j,i] = rgbtup
-
-
-
-im3.show()
 
 
 
