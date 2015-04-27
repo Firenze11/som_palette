@@ -10,6 +10,7 @@ from PIL import Image
 
 # In[200]:
 
+N = 5;
 neuron_w = 4
 neuron_h = 4
 max_dist = 3 * pow(255,2)
@@ -34,8 +35,8 @@ def initialize_som():
 
 # In[201]:
 
-def neighborhood(wn,cn,t,N):
-    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t,N) * radius(t,N)))
+def neighborhood(wn,cn,t):
+    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t) * radius(t)))
 
 
 # In[202]:
@@ -64,9 +65,9 @@ def sq_node_distance(n0, n1):
 
 # In[205]:
 
-def update_node(pv,wn,cn,t,N):
-    _a = a(t,N)
-    _n = neighborhood(wn,cn,t,N)
+def update_node(pv,wn,cn,t):
+    _a = a(t)
+    _n = neighborhood(wn,cn,t)
     v = ()
     for i in xrange(len(pv)):
         new_dim = cn.get_v()[i] + _a * _n * (pv[i]-cn.get_v()[i])
@@ -76,21 +77,21 @@ def update_node(pv,wn,cn,t,N):
 
 # In[206]:
 
-def update_som(som,pv,wn,t,N):
+def update_som(som,pv,wn,t):
     for column in som:
         for cn in column:
-            update_node(pv, wn,cn,t,N)
+            update_node(pv, wn,cn,t)
 
 
 # In[207]:
 
-def radius(t,N):
+def radius(t):
     return (neuron_w + neuron_h)/4 * math.exp(-t / (N / math.log( (neuron_w + neuron_h)/4) ))
 
 
 # In[208]:
 
-def a(t,N):
+def a(t):
     return a0 * math.exp(-t / N)
 
 
@@ -112,13 +113,12 @@ image = classes.Dataset("cat.jpeg")
 # In[212]:
 
 def train (data,som):
-    N = 5;
     for t in xrange(N):
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
             win_n = winner_node(pixel_v, som)
-            update_som(som, pixel_v, win_n, t, N)
+            update_som(som, pixel_v, win_n, t)
     print "training finished" 
     for i in range(neuron_h):
         for j in range(neuron_w):
