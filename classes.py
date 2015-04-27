@@ -41,7 +41,7 @@ class Dataset:
     def get_label (self, point):
         return self._labels[point]
 
-a = Dataset("cat.jpeg")
+#a = Dataset("cat.jpeg")
 #print a[4]
 #print a.get_vector(4)
 #print a.get_label(4)
