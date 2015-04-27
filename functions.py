@@ -14,6 +14,8 @@ neuron_w = 4
 neuron_h = 4
 max_dist = 3 * pow(255,2)
 
+a0 = 0.1 #initial learning rate
+
 #TODO: round result vectors, so that colors have tuples of integers
 '''
 We did this! In the last loop of the code (last 10 lines)
@@ -33,7 +35,7 @@ def initialize_som(w, h):
 # In[201]:
 
 def neighborhood(wn,cn,t,w,h,N):
-    return math.exp(-node_distance(wn,cn) * node_distance(wn,cn)/ (2 * radius(t,w,h,N) * radius(t,w,h,N)))
+    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t,w,h,N) * radius(t,w,h,N)))
 
 
 # In[202]:
@@ -56,8 +58,8 @@ def winner_node(pv, som):
 
 # In[204]:
 
-def node_distance(n0, n1):
-    return math.sqrt(math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2))
+def sq_node_distance(n0, n1):
+    return math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2)
 
 
 # In[205]:
@@ -89,7 +91,7 @@ def radius(t,w,h,N):
 # In[208]:
 
 def a(t,N):
-    return 0.1 * math.exp(-t / N)
+    return a0 * math.exp(-t / N)
 
 
 # In[209]:
@@ -146,7 +148,39 @@ im3.show()
 
 
 
-# In[ ]:
+# In[Reproduction]:
+
+def reproduce (data,fin_som,pic_w,pic_h,som_w,som_h):
+    im4 = Image.new('RGB', (pic_w,pic_h), None)
+    pix4 = im4.load()
+    fin_array = []
+    for i in xrange(len(data)):
+        pixel_u = data.get_vector(i)
+        win_u = winner_node(pixel_u,fin_som)
+        fin_array
+        for x in range(pic_w):
+            for y in range(pic_h):
+                lst = list(fin_som[x][y].get_v())
+                tup = []
+                for z in range(len(lst)):
+                    tup[len(tup):] = [int(round(fin_som[x][y].get_v()[z]))]
+                rgbtup = tuple(tup)
+        pix4[i/pic_w,i%pic_w] = win_u.get_v()
+    pix4.show()
+
+reproduce(image,s_o_m,image.size[0],image.size[1],neuron_w,neuron_h)
+
+'''
+for x in range(image.size[0]):
+    for y in range(image.size[1]):
+        lst = list(s_o_m[i][j].get_v())
+        tup = []
+        for k in range(len(lst)):
+            tup[len(tup):] = [int(round(s_o_m[i][j].get_v()[k]))]
+        rgbtup = tuple(tup)
+        pix4[x,y] = reproduce(image,s_o_m,image.size[0],image.size[1])
+'''
+
 
 
 

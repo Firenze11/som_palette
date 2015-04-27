@@ -12,6 +12,7 @@ class Dataset:
         #print im.size #Get the width and hight of the image for iterating over
         im.show()
         
+        self.size = im.size
         self._vectors = []
         self._labels = []
         
@@ -29,6 +30,9 @@ class Dataset:
     def __getitem__ (self, key):
         return (self._vectors[key], self._labels[key])
 
+    def size (self):
+        return self.size
+
     def vectors (self):
         return self._vectors
     
@@ -42,6 +46,7 @@ class Dataset:
         return self._labels[point]
 
 #a = Dataset("cat.jpeg")
+#print a.size
 #print a[4]
 #print a.get_vector(4)
 #print a.get_label(4)
