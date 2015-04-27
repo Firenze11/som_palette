@@ -6,9 +6,12 @@
 import classes
 import random
 import math
-
+from PIL import Image
 
 # In[200]:
+
+#TODO: round result vectors, so that colors have tuples of integers
+#TODO: maybe normalize vectors, so that it works with different kind of data - not really necessary
 
 def initialize_som(w, h):
     out_map = []
@@ -88,26 +91,50 @@ s_o_m = initialize_som(5,6)
 
 
 # In[210]:
+print "a"
+print s_o_m
+print "b"
+for i in range(6):
+    for j in range (5):
+        print s_o_m[i][j].get_v()
+
+im2 = Image.new('RGB', (5,6), None)
+pix2 = im2.load()
+
+print pix2[0,0]
+print s_o_m[0]
+print type(pix2[0,0])
+test = s_o_m[0][0].get_v()
+print type(test)
+pix2[0,0] = s_o_m[0][0].get_v()
+print "a"
+print pix2[0,0]
+for i in range(6):
+    for j in range(5):
+        pix2[j,i] = s_o_m[i][j].get_v()
+
+im2.show()
 
 #print s_o_m
 
 
 # In[211]:
 
-image = classes.Dataset("cat.jpeg")
+image = classes.Dataset("ducksmall.jpeg")
 
 
 # In[212]:
 
 def train (data,som,w,h):
-    N = 100;
+    N = 50;
     for t in xrange(N):
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
             win_n = winner_node(pixel_v,som)
             update_som(som,pixel_v,win_n,t,w,h,N)
-    print "training finished"    
+        print t
+    print "training finished" 
     for i in range(h):
         for j in range(w):
             print som[i][j]
@@ -115,6 +142,22 @@ def train (data,som,w,h):
 # In[142]:
 
 train(image,s_o_m,5,6)
+
+im3 = Image.new('RGB', (5,6), None)
+pix3 = im3.load()
+
+for i in range(6):
+    for j in range(5):
+        lst = list(s_o_m[i][j].get_v())
+        tup = []
+        for k in range(len(lst)):
+            tup[len(tup):] = [int(round(s_o_m[i][j].get_v()[k]))]
+        rgbtup = tuple(tup)
+        pix3[j,i] = rgbtup
+
+
+
+im3.show()
 
 
 
