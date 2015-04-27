@@ -10,7 +10,14 @@ from PIL import Image
 
 # In[200]:
 
+neuron_w = 4
+neuron_h = 4
+max_dist = 3 * pow(255,2)
+
 #TODO: round result vectors, so that colors have tuples of integers
+'''
+We did this! In the last loop of the code (last 10 lines)
+'''
 #TODO: maybe normalize vectors, so that it works with different kind of data - not really necessary
 
 def initialize_som(w, h):
@@ -38,7 +45,7 @@ def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n
 # In[203]:
 
 def winner_node(pv, som):
-    d_min = math.sqrt(195075)
+    d_min = math.sqrt(max_dist)
     for column in som:
         for n in column:
             if vec_distance(pv, n) < d_min:
@@ -87,53 +94,29 @@ def a(t,N):
 
 # In[209]:
 
-s_o_m = initialize_som(30,30)
+
+s_o_m = initialize_som(neuron_w,neuron_h)
 
 
 # In[210]:
-# print "a"
-# print s_o_m
-# print "b"
-# for i in range(6):
-#     for j in range (5):
-#         print s_o_m[i][j].get_v()
 
-im2 = Image.new('RGB', (30,30), None)
-pix2 = im2.load()
-
-print pix2[0,0]
-print s_o_m[0]
-print type(pix2[0,0])
-test = s_o_m[0][0].get_v()
-print type(test)
-pix2[0,0] = s_o_m[0][0].get_v()
-# print "a"
-# print pix2[0,0]
-# for i in range(6):
-#     for j in range(5):
-#         pix2[j,i] = s_o_m[i][j].get_v()
-
-im2.show()
-
-#print s_o_m
 
 
 # In[211]:
 
-image = classes.Dataset("ducksmall.jpeg")
+image = classes.Dataset("cat.jpeg")
 
 
 # In[212]:
 
 def train (data,som,w,h):
-    N = 50;
+    N = 5;
     for t in xrange(N):
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
             win_n = winner_node(pixel_v,som)
             update_som(som,pixel_v,win_n,t,w,h,N)
-        print t
     print "training finished" 
     for i in range(h):
         for j in range(w):
@@ -141,13 +124,14 @@ def train (data,som,w,h):
 
 # In[142]:
 
-train(image,s_o_m,30,30)
 
-im3 = Image.new('RGB', (30,30), None)
+train(image,s_o_m,neuron_w,neuron_h)
+
+im3 = Image.new('RGB', (neuron_w,neuron_h), None)
 pix3 = im3.load()
 
-for i in range(30):
-    for j in range(30):
+for i in range(neuron_h):
+    for j in range(neuron_w):
         lst = list(s_o_m[i][j].get_v())
         tup = []
         for k in range(len(lst)):
