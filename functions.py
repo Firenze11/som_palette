@@ -13,7 +13,7 @@ from PIL import Image
 N = 5;
 neuron_w = 4
 neuron_h = 4
-max_dist = 3 * pow(255,2)
+max_dist = 3 * 255 * 255
 
 a0 = 0.1 #initial learning rate
 
@@ -42,7 +42,7 @@ def neighborhood(wn,cn,t):
 # In[202]:
 
 def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n: node
-    return math.sqrt(math.pow(pv[0] - n.v[0], 2) + math.pow(pv[1] - n.v[1], 2) + math.pow(pv[2] - n.v[2], 2))
+    return math.sqrt( (pv[0]-n.v[0])*(pv[0]-n.v[0]) + (pv[1]-n.v[1])*(pv[1]-n.v[1]) + (pv[2] - n.v[2])*(pv[2] - n.v[2]))
 
 
 # In[203]:
@@ -60,7 +60,7 @@ def winner_node(pv, som):
 # In[204]:
 
 def sq_node_distance(n0, n1):
-    return math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2)
+    return (n0.x - n1.x) * (n0.x - n1.x) + (n0.y - n1.y) * (n0.y - n1.y)
 
 
 # In[205]:
