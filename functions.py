@@ -10,11 +10,18 @@ from PIL import Image
 
 # In[200]:
 
+<<<<<<< HEAD
 
 N = 100;
 neuron_w = 30
 neuron_h = 30
 max_dist = 3 * pow(255,2)
+=======
+N = 5;
+neuron_w = 4
+neuron_h = 4
+max_dist = 3 * 255 * 255
+>>>>>>> 6e74ef6e95381374cddb1d8c218ed60efcad3d67
 
 a0 = 0.1 #initial learning rate
 
@@ -33,7 +40,7 @@ def neighborhood(wn,cn,t):
     return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t) * radius(t)))
 
 def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n: node
-    return math.sqrt(math.pow(pv[0] - n.v[0], 2) + math.pow(pv[1] - n.v[1], 2) + math.pow(pv[2] - n.v[2], 2))
+    return math.sqrt( (pv[0]-n.v[0])*(pv[0]-n.v[0]) + (pv[1]-n.v[1])*(pv[1]-n.v[1]) + (pv[2] - n.v[2])*(pv[2] - n.v[2]))
 
 def winner_node(pv, som):
     d_min = math.sqrt(max_dist)
@@ -45,7 +52,7 @@ def winner_node(pv, som):
     return winner
 
 def sq_node_distance(n0, n1):
-    return math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2)
+    return (n0.x - n1.x) * (n0.x - n1.x) + (n0.y - n1.y) * (n0.y - n1.y)
 
 def update_node(pv,wn,cn,t):
     _a = a(t)
