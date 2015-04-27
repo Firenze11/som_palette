@@ -10,9 +10,9 @@ from PIL import Image
 
 # In[200]:
 
-N = 5;
-neuron_w = 4
-neuron_h = 4
+N = 20;
+neuron_w = 20
+neuron_h = 20
 max_dist = 3 * 255 * 255
 
 a0 = 0.1 #initial learning rate
@@ -36,7 +36,8 @@ def initialize_som():
 # In[201]:
 
 def neighborhood(wn,cn,t):
-    return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t) * radius(t)))
+    r = radius(t)
+    return math.exp(-sq_node_distance(wn,cn) / (2 * r * r))
 
 
 # In[202]:

@@ -11,6 +11,7 @@ class Dataset:
         pix = im.load()
         #print im.size #Get the width and hight of the image for iterating over
         im.show()
+        im.thumbnail((40,30))
         
         self.size = im.size
         self._vectors = []
