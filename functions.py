@@ -12,6 +12,8 @@ from PIL import Image
 
 neuron_w = 4
 neuron_h = 4
+max_dist = 3 * pow(255,2)
+
 #TODO: round result vectors, so that colors have tuples of integers
 '''
 We did this! In the last loop of the code (last 10 lines)
@@ -43,7 +45,7 @@ def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n
 # In[203]:
 
 def winner_node(pv, som):
-    d_min = math.sqrt(195075)
+    d_min = math.sqrt(max_dist)
     for column in som:
         for n in column:
             if vec_distance(pv, n) < d_min:
@@ -108,7 +110,7 @@ image = classes.Dataset("cat.jpeg")
 # In[212]:
 
 def train (data,som,w,h):
-    N = 10;
+    N = 5;
     for t in xrange(N):
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
