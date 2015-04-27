@@ -106,7 +106,7 @@ s_o_m = initialize_som(neuron_w,neuron_h)
 
 # In[211]:
 
-image = classes.Dataset("cat.jpeg")
+image = classes.Dataset("sample.bmp")
 
 
 # In[212]:

@@ -64,7 +64,7 @@ class Node:
     
     def set_v (self, v):
         new_v = ()
-        for i in xrange(leng(v)):
+        for i in xrange(len(v)):
             new_dim = int(round(v[i]))
             new_v = new_v + (new_dim,)
         self.v = new_v
