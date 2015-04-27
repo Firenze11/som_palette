@@ -63,7 +63,11 @@ class Node:
         return str (self.v)
     
     def set_v (self, v):
-        self.v = v
+        new_v = ()
+        for i in xrange(leng(v)):
+            new_dim = int(round(v[i]))
+            new_v = new_v + (new_dim,)
+        self.v = new_v
         
     def get_v (self):
         return self.v
