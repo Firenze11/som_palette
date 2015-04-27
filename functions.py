@@ -18,10 +18,6 @@ max_dist = 3 * pow(255,2)
 
 a0 = 0.1 #initial learning rate
 
-#TODO: round result vectors, so that colors have tuples of integers
-'''
-We did this! In the last loop of the code (last 10 lines)
-'''
 #TODO: maybe normalize vectors, so that it works with different kind of data - not really necessary
 
 def initialize_som():
@@ -33,20 +29,11 @@ def initialize_som():
             out_map[i].append(temp_col)
     return out_map
 
-
-# In[201]:
-
 def neighborhood(wn,cn,t):
     return math.exp(-sq_node_distance(wn,cn)/ (2 * radius(t) * radius(t)))
 
-
-# In[202]:
-
 def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n: node
     return math.sqrt(math.pow(pv[0] - n.v[0], 2) + math.pow(pv[1] - n.v[1], 2) + math.pow(pv[2] - n.v[2], 2))
-
-
-# In[203]:
 
 def winner_node(pv, som):
     d_min = math.sqrt(max_dist)
@@ -57,14 +44,8 @@ def winner_node(pv, som):
                 d_min = vec_distance(pv, n)
     return winner
 
-
-# In[204]:
-
 def sq_node_distance(n0, n1):
     return math.pow(n0.x - n1.x, 2) + math.pow(n0.y - n1.y, 2)
-
-
-# In[205]:
 
 def update_node(pv,wn,cn,t):
     _a = a(t)
@@ -75,43 +56,16 @@ def update_node(pv,wn,cn,t):
         v = v + (new_dim,)
     cn.set_v(v)
 
-
-# In[206]:
-
 def update_som(som,pv,wn,t):
     for column in som:
         for cn in column:
             update_node(pv, wn,cn,t)
 
-
-# In[207]:
-
 def radius(t):
     return (neuron_w + neuron_h)/4 * math.exp(-t / (N / math.log( (neuron_w + neuron_h)/4) ))
 
-
-# In[208]:
-
 def a(t):
     return a0 * math.exp(-t / N)
-
-
-# In[209]:
-
-
-s_o_m = initialize_som()
-
-
-# In[210]:
-
-
-
-# In[211]:
-
-image = classes.Dataset("sample.bmp")
-
-
-# In[212]:
 
 def train (data,som):
     for t in xrange(N):
@@ -128,18 +82,8 @@ def train (data,som):
     som_val = som_im.load()
     for i in range(neuron_h):
         for j in range(neuron_w):
-            som_val[j,i] = s_o_m[i][j].get_v()
-    som_im.show()
-
-# In[142]:
-
-
-train(image,s_o_m)
-
-
-
-
-# In[Reproduction]:
+            som_val[j,i] = som[i][j].get_v()
+    return som_im
 
 def reproduce (data,fin_som,pic_w,pic_h,som_w,som_h):
     im4 = Image.new('RGB', (pic_w,pic_h), None)
