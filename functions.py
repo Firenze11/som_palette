@@ -87,18 +87,18 @@ def a(t,N):
 
 # In[209]:
 
-s_o_m = initialize_som(5,6)
+s_o_m = initialize_som(30,30)
 
 
 # In[210]:
-print "a"
-print s_o_m
-print "b"
-for i in range(6):
-    for j in range (5):
-        print s_o_m[i][j].get_v()
+# print "a"
+# print s_o_m
+# print "b"
+# for i in range(6):
+#     for j in range (5):
+#         print s_o_m[i][j].get_v()
 
-im2 = Image.new('RGB', (5,6), None)
+im2 = Image.new('RGB', (30,30), None)
 pix2 = im2.load()
 
 print pix2[0,0]
@@ -107,11 +107,11 @@ print type(pix2[0,0])
 test = s_o_m[0][0].get_v()
 print type(test)
 pix2[0,0] = s_o_m[0][0].get_v()
-print "a"
-print pix2[0,0]
-for i in range(6):
-    for j in range(5):
-        pix2[j,i] = s_o_m[i][j].get_v()
+# print "a"
+# print pix2[0,0]
+# for i in range(6):
+#     for j in range(5):
+#         pix2[j,i] = s_o_m[i][j].get_v()
 
 im2.show()
 
@@ -141,13 +141,13 @@ def train (data,som,w,h):
 
 # In[142]:
 
-train(image,s_o_m,5,6)
+train(image,s_o_m,30,30)
 
-im3 = Image.new('RGB', (5,6), None)
+im3 = Image.new('RGB', (30,30), None)
 pix3 = im3.load()
 
-for i in range(6):
-    for j in range(5):
+for i in range(30):
+    for j in range(30):
         lst = list(s_o_m[i][j].get_v())
         tup = []
         for k in range(len(lst)):
