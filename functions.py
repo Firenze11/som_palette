@@ -10,18 +10,11 @@ from PIL import Image
 
 # In[200]:
 
-<<<<<<< HEAD
-
 N = 100;
 neuron_w = 30
 neuron_h = 30
 max_dist = 3 * pow(255,2)
-=======
-N = 5;
-neuron_w = 4
-neuron_h = 4
-max_dist = 3 * 255 * 255
->>>>>>> 6e74ef6e95381374cddb1d8c218ed60efcad3d67
+
 
 a0 = 0.1 #initial learning rate
 
@@ -82,6 +75,8 @@ def train (data,som):
             win_n = winner_node(pixel_v, som)
             update_som(som, pixel_v, win_n, t)
     print "training finished" 
+
+def draw (som):
     for i in range(neuron_h):
         for j in range(neuron_w):
             print som[i][j]
@@ -90,7 +85,7 @@ def train (data,som):
     for i in range(neuron_h):
         for j in range(neuron_w):
             som_val[j,i] = som[i][j].get_v()
-    return som_im
+    som_im.show()
 
 def reproduce (data,fin_som,pic_w,pic_h,som_w,som_h):
     im4 = Image.new('RGB', (pic_w,pic_h), None)
