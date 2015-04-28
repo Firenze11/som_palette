@@ -2,12 +2,13 @@ import classes
 import random
 import math
 from PIL import Image
+import os
 
 N = 5;
 neuron_w = 5
 neuron_h = 5 # (neuron_w + neuron_h) must be greater than or equal to 8
 max_dist = 3 * 255 * 255
-som_dim = 400
+som_dim = 300
 
 a0 = 0.1 #initial learning rate
 
@@ -84,6 +85,17 @@ def draw (som):
             som_val[i,j] = som[j][i].get_v()
     som_im2 = som_im.resize((som_dim,som_dim))
     som_im2.show()
+
+def save_som (som):
+    db = open("database.py",'ab+')
+    count = sum(1 for line in open("database.py"))
+    db.write("som%d = [" %(count + 1))
+    for i in range(neuron_w):
+        for j in range(neuron_h):
+            db.write(str(som[j][i].get_v()) + ", ")
+    db.seek(-2, os.SEEK_END)
+    db.truncate()
+    db.write(']\n')
 
 def reproduce (data,fin_som,pic_w,pic_h):
     new_im = Image.new('RGB', (pic_w,pic_h), None)

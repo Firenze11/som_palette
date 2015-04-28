@@ -5,9 +5,11 @@ s_o_m = functions.initialize_som()
 
 functions.draw(s_o_m)
 
-image = classes.Dataset("americangothic.jpg")
+image = classes.Dataset("fa.jpg")
 
 functions.train(image,s_o_m)
+
+functions.save_som(s_o_m)
 
 functions.draw(s_o_m)
 
