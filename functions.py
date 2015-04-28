@@ -96,6 +96,7 @@ def save_som (som):
     db.seek(-2, os.SEEK_END)
     db.truncate()
     db.write(']\n')
+    db.close()
 
 def reproduce (data,fin_som,pic_w,pic_h):
     new_im = Image.new('RGB', (pic_w,pic_h), None)
