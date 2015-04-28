@@ -21,9 +21,8 @@ def initialize_som():
             out_map[i].append(temp_col)
     return out_map
 
-def neighborhood(wn,cn,t):
-    r = radius(t)
-    return math.exp(-sq_node_distance(wn,cn) / (2 * r * r))
+def neighborhood(d2, r2):
+    return math.exp(-d2 / (2 * r2))
 
 def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n: node
     return math.sqrt( (pv[0]-n.v[0])*(pv[0]-n.v[0]) + (pv[1]-n.v[1])*(pv[1]-n.v[1]) + (pv[2] - n.v[2])*(pv[2] - n.v[2]))
@@ -41,13 +40,17 @@ def sq_node_distance(n0, n1):
     return (n0.x - n1.x) * (n0.x - n1.x) + (n0.y - n1.y) * (n0.y - n1.y)
 
 def update_node(pv,wn,cn,t):
-    _a = a(t)
-    _n = neighborhood(wn,cn,t)
-    v = ()
-    for i in xrange(len(pv)):
-        new_dim = cn.get_v()[i] + _a * _n * (pv[i]-cn.get_v()[i])
-        v = v + (new_dim,)
-    cn.set_v(v)
+    _r = radius(t)
+    _r2 = _r * _r
+    _d2 = sq_node_distance(wn,cn)
+    if (_d2 < _r2):
+        _a = a(t)
+        _n = neighborhood(_d2,_r2)
+        v = ()
+        for i in xrange(len(pv)):
+            new_dim = cn.get_v()[i] + _a * _n * (pv[i]-cn.get_v()[i])
+            v = v + (new_dim,)
+        cn.set_v(v)
 
 def update_som(som,pv,wn,t):
     for column in som:
