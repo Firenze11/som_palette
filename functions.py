@@ -73,15 +73,16 @@ def train (data,som):
     print "training finished" 
 
 def draw (som):
-    for i in range(neuron_h):
-        for j in range(neuron_w):
-            print som[i][j]
+    for i in range(neuron_w):
+        for j in range(neuron_h):
+            print som[j][i]
     som_im = Image.new('RGB', (neuron_w,neuron_h), None)
     som_val = som_im.load()
-    for i in range(neuron_h):
-        for j in range(neuron_w):
-            som_val[j,i] = som[i][j].get_v()
-    som_im.show()
+    for i in range(neuron_w):
+        for j in range(neuron_h):
+            som_val[i,j] = som[j][i].get_v()
+    som_im2 = som_im.resize((400,400))
+    som_im2.show()
 
 def reproduce (data,fin_som,pic_w,pic_h):
     new_im = Image.new('RGB', (pic_w,pic_h), None)
