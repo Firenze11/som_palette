@@ -10,3 +10,5 @@ image = classes.Dataset("cat.jpeg")
 functions.train(image,s_o_m)
 
 functions.draw(s_o_m)
+
+functions.reproduce(image,s_o_m,image.size[0],image.size[1])

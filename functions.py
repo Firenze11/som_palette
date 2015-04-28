@@ -3,9 +3,9 @@ import random
 import math
 from PIL import Image
 
-N = 1000;
-neuron_w = 20
-neuron_h = 20
+N = 5;
+neuron_w = 4
+neuron_h = 4 # (neuron_w + neuron_h) must be greater than or equal to 8
 max_dist = 3 * 255 * 255
 
 a0 = 0.1 #initial learning rate
@@ -83,25 +83,15 @@ def draw (som):
             som_val[j,i] = som[i][j].get_v()
     som_im.show()
 
-def reproduce (data,fin_som,pic_w,pic_h,som_w,som_h):
-    im4 = Image.new('RGB', (pic_w,pic_h), None)
-    pix4 = im4.load()
-    fin_array = []
+def reproduce (data,fin_som,pic_w,pic_h):
+    new_im = Image.new('RGB', (pic_w,pic_h), None)
+    new_data = new_im.load()
     for i in xrange(len(data)):
         pixel_u = data.get_vector(i)
         win_u = winner_node(pixel_u,fin_som)
-        fin_array
-        for x in range(pic_w):
-            for y in range(pic_h):
-                lst = list(fin_som[x][y].get_v())
-                tup = []
-                for z in range(len(lst)):
-                    tup[len(tup):] = [int(round(fin_som[x][y].get_v()[z]))]
-                rgbtup = tuple(tup)
-        pix4[i/pic_w,i%pic_w] = win_u.get_v()
-    pix4.show()
+        new_data[i%pic_w,i/pic_w] = win_u.get_v()
+    new_im.show()
 
-#reproduce(image,s_o_m,image.size[0],image.size[1],neuron_w,neuron_h)
 
 '''
 for x in range(image.size[0]):
