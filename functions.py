@@ -86,16 +86,16 @@ def draw (som):
     som_im2 = som_im.resize((som_dim,som_dim))
     som_im2.show()
 
-def save_som (som):
+def save_som (som,filename):
     db = open("database.py",'ab+')
     count = sum(1 for line in open("database.py"))
-    db.write("som%d = [" %(count + 1))
+    db.write("som%d = ['%s', [" %((count + 1),filename))
     for i in range(neuron_w):
         for j in range(neuron_h):
             db.write(str(som[j][i].get_v()) + ", ")
     db.seek(-2, os.SEEK_END)
     db.truncate()
-    db.write(']\n')
+    db.write(']]\n')
     db.close()
 
 def reproduce (data,fin_som,pic_w,pic_h):
