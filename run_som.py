@@ -5,7 +5,7 @@ s_o_m = functions.initialize_som()
 
 functions.draw(s_o_m)
 
-image = classes.Dataset("cat.jpeg")
+image = classes.Dataset("americangothic.jpg")
 
 functions.train(image,s_o_m)
 

@@ -4,8 +4,8 @@ import math
 from PIL import Image
 
 N = 5;
-neuron_w = 4
-neuron_h = 4 # (neuron_w + neuron_h) must be greater than or equal to 8
+neuron_w = 5
+neuron_h = 5 # (neuron_w + neuron_h) must be greater than or equal to 8
 max_dist = 3 * 255 * 255
 som_dim = 400
 
