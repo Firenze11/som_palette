@@ -7,6 +7,7 @@ N = 5;
 neuron_w = 4
 neuron_h = 4 # (neuron_w + neuron_h) must be greater than or equal to 8
 max_dist = 3 * 255 * 255
+som_dim = 400
 
 a0 = 0.1 #initial learning rate
 
@@ -81,7 +82,7 @@ def draw (som):
     for i in range(neuron_w):
         for j in range(neuron_h):
             som_val[i,j] = som[j][i].get_v()
-    som_im2 = som_im.resize((400,400))
+    som_im2 = som_im.resize((som_dim,som_dim))
     som_im2.show()
 
 def reproduce (data,fin_som,pic_w,pic_h):
