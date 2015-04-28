@@ -1,18 +1,11 @@
-
-# coding: utf-8
-
-# In[199]:
-
 import classes
 import random
 import math
 from PIL import Image
 
-# In[200]:
-
-N = 100;
-neuron_w = 30
-neuron_h = 30
+N = 1000;
+neuron_w = 20
+neuron_h = 20
 max_dist = 3 * 255 * 255
 
 a0 = 0.1 #initial learning rate
