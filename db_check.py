@@ -22,11 +22,6 @@ def similar_som():
 					var_B = var_B + som[h][1][i][j]
 		RGB_vals.append((var_R/(som[h][2]),var_G/(som[h][2]),var_B/(som[h][2])))
 
-	print RGB_vals
-
-
-
-	#print vec_distance(RGB_vals[0],RGB_vals[1])
 	a = len(som)
 	som_num1 = som[a-1]
 
@@ -41,24 +36,6 @@ def similar_som():
 	b = distances.index(min(distances))
 	som_num2 = som[b]
 
-	im2 = Image.open(som_num2[0],'r') #Can be many different formats.
+	im2 = Image.open(som_num2[0],'r')
 	pix2 = im2.load()
 	im2.show()
-
-'''
-som_im = Image.new('RGB', (10,10), None)
-som_val = som_im.load()
-for i in range(10):
-    for j in range(10):
-        som_val[i,j] = som11[1][10*i + j]
-som_im.show()
-
-def winner_node(pv, som):
-    d_min = math.sqrt(max_dist)
-    for column in som:
-        for n in column:
-            if vec_distance(pv, n) < d_min:
-                winner = n
-                d_min = vec_distance(pv, n)
-    return winner
-    '''
