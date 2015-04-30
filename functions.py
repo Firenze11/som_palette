@@ -5,8 +5,8 @@ from PIL import Image
 import os
 
 N = 5;
-neuron_w = 5
-neuron_h = 5 # (neuron_w + neuron_h) must be greater than or equal to 8
+neuron_w = 4
+neuron_h = 4 # (neuron_w + neuron_h) must be greater than or equal to 8
 max_dist = 3 * 255 * 255
 som_dim = 300
 
@@ -95,8 +95,16 @@ def save_som (som,filename):
             db.write(str(som[j][i].get_v()) + ", ")
     db.seek(-2, os.SEEK_END)
     db.truncate()
-    db.write('])\n')
+    db.write('], %d)\n' %(neuron_w * neuron_h))
     db.close()
+    db_index = open("database_index.py",'wb+')
+    db_index.write("import database\nsom = [")
+    for i in range(count + 1):
+        db_index.write("database.som%d," %(i + 1))
+    db_index.seek(-1, os.SEEK_END)
+    db_index.truncate()
+    db_index.write(']')
+    db_index.close()
 
 def reproduce (data,fin_som,pic_w,pic_h):
     new_im = Image.new('RGB', (pic_w,pic_h), None)

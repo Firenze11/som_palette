@@ -1,7 +1,7 @@
 import functions
 import classes
 
-pic_file = "fa.jpg"
+pic_file = "wisconsin.jpg"
 
 s_o_m = functions.initialize_som()
 
@@ -16,3 +16,8 @@ functions.save_som(s_o_m,pic_file)
 functions.draw(s_o_m)
 
 functions.reproduce(image,s_o_m,image.size[0],image.size[1])
+
+
+import db_check
+
+db_check.similar_som()
