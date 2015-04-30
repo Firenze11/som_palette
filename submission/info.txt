@@ -1,0 +1,2 @@
+title: Generation of an Image’s Color Palette using a Kohonen Self-Organizing Map
+seas-usernames: tingzhou, dianachen, sampanavos, lezhili

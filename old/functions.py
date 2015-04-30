@@ -67,6 +67,7 @@ def a(t):
 
 def train (data,som):
     for t in xrange(N):
+        draw(som)
         for i in xrange(len(data)):
             print "t: "+str(t)+", "+"i: "+str(i)
             pixel_v = data.get_vector(i)
