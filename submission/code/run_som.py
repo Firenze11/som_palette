@@ -1,7 +1,7 @@
 import functions
 import classes
 
-pic_file = "..\data\wisconsin.jpg"
+pic_file = "../data/wisconsin.jpg"
 
 s_o_m = functions.initialize_som()
 

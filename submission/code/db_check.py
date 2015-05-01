@@ -25,10 +25,6 @@ def similar_som():
 	a = len(som)
 	som_num1 = som[a-1]
 
-	im = Image.open("../data/" + som_num1[0],'r')
-	pix = im.load()
-	im.show()
-
 	distances = []
 	for i in range(len(RGB_vals)-1):
 		distances.append(rgb_distance(RGB_vals[len(RGB_vals)-1],RGB_vals[i]))
