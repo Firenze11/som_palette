@@ -17,6 +17,7 @@ functions.draw(s_o_m)
 
 functions.reproduce(image,s_o_m,image.size[0],image.size[1])
 
+# import after database updated with new SOM
 import db_check
 
 db_check.similar_som()
