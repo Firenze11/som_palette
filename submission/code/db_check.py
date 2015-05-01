@@ -2,9 +2,11 @@ import math
 import database_index
 from PIL import Image
 
+# calculate euclidean distance between two RGB triples
 def rgb_distance(a, b):
     return math.sqrt( (a[0]-b[0])*(a[0]-b[0]) + (a[1]-b[1])*(a[1]-b[1]) + (a[2] - b[2])*(a[2] - b[2]))
 
+# determine most similar database SOM
 def similar_som():
 	RGB_vals = []
 	som = database_index.som
@@ -32,6 +34,7 @@ def similar_som():
 	b = distances.index(min(distances))
 	som_num2 = som[b]
 
+	# open most similar SOM
 	im2 = Image.open("../data/" + som_num2[0],'r')
 	pix2 = im2.load()
 	im2.show()

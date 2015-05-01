@@ -4,16 +4,19 @@ import math
 from PIL import Image
 import os
 
+# set max possible distance between two colors
+max_dist = 3 * 255 * 255
+
+# set parameters
 N = 5;
 neuron_w = 4
 neuron_h = 4 # (neuron_w + neuron_h) must be greater than or equal to 8
-max_dist = 3 * 255 * 255
 som_dim = 300
 
-a0 = 0.1 #initial learning rate
+# initial learning rate
+a0 = 0.1
 
-#TODO: maybe normalize vectors, so that it works with different kind of data - not really necessary
-
+# initialize randomized SOM
 def initialize_som():
     out_map = []
     for i in range(neuron_h):
@@ -23,12 +26,15 @@ def initialize_som():
             out_map[i].append(temp_col)
     return out_map
 
+# define neighborhood distance
 def neighborhood(d2, r2):
     return math.exp(-d2 / (2 * r2))
 
+# calculate euclidean distance between RGB triples
 def vec_distance(pv, n):    #pv: pixel vector (to be called with get_vector) , n: node
     return math.sqrt( (pv[0]-n.v[0])*(pv[0]-n.v[0]) + (pv[1]-n.v[1])*(pv[1]-n.v[1]) + (pv[2] - n.v[2])*(pv[2] - n.v[2]))
 
+# determine SOM node closest in color to image pixel vector
 def winner_node(pv, som):
     d_min = math.sqrt(max_dist)
     for column in som:
@@ -38,9 +44,11 @@ def winner_node(pv, som):
                 d_min = vec_distance(pv, n)
     return winner
 
+# calculate distance between SOM nodes
 def sq_node_distance(n0, n1):
     return (n0.x - n1.x) * (n0.x - n1.x) + (n0.y - n1.y) * (n0.y - n1.y)
 
+# update SOM node's RGB values
 def update_node(pv,wn,cn,t):
     _r = radius(t)
     _r2 = _r * _r
@@ -54,17 +62,21 @@ def update_node(pv,wn,cn,t):
             v = v + (new_dim,)
         cn.set_v(v)
 
+# update all of SOM's RGB values
 def update_som(som,pv,wn,t):
     for column in som:
         for cn in column:
             update_node(pv, wn,cn,t)
 
+# calculate radius
 def radius(t):
     return (neuron_w + neuron_h)/4 * math.exp(-t / (N / math.log( (neuron_w + neuron_h)/4) ))
 
+# time-varying learning rate
 def a(t):
     return a0 * math.exp(-t / N)
 
+# train the SOM
 def train (data,som):
     for t in xrange(N):
         draw(som)
@@ -75,6 +87,7 @@ def train (data,som):
             update_som(som, pixel_v, win_n, t)
     print "training finished" 
 
+# display the SOM
 def draw (som):
     for i in range(neuron_w):
         for j in range(neuron_h):
@@ -87,6 +100,7 @@ def draw (som):
     som_im2 = som_im.resize((som_dim,som_dim))
     som_im2.show()
 
+# save SOM data to database.py and database_index.py
 def save_som (som,filename):
     db = open("database.py",'ab+')
     count = sum(1 for line in open("database.py"))
@@ -107,6 +121,7 @@ def save_som (som,filename):
     db_index.write(']')
     db_index.close()
 
+# reproduce the input image with only final SOM colors
 def reproduce (data,fin_som,pic_w,pic_h):
     new_im = Image.new('RGB', (pic_w,pic_h), None)
     new_data = new_im.load()
@@ -115,19 +130,3 @@ def reproduce (data,fin_som,pic_w,pic_h):
         win_u = winner_node(pixel_u,fin_som)
         new_data[i%pic_w,i/pic_w] = win_u.get_v()
     new_im.show()
-
-
-'''
-for x in range(image.size[0]):
-    for y in range(image.size[1]):
-        lst = list(s_o_m[i][j].get_v())
-        tup = []
-        for k in range(len(lst)):
-            tup[len(tup):] = [int(round(s_o_m[i][j].get_v()[k]))]
-        rgbtup = tuple(tup)
-        pix4[x,y] = reproduce(image,s_o_m,image.size[0],image.size[1])
-'''
-
-
-
-
